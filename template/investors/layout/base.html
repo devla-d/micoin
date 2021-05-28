@@ -1,0 +1,33 @@
+{%  load static %}
+<!DOCTYPE html>
+<html lang="zxx">
+    <head>
+        <title>{% block title %} {% endblock title %} </title>
+
+        {% include "investors/include/header.html" %}
+
+    </head>
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
+    </div>
+   
+
+    {% include "investors/include/navbar.html" %}
+
+
+    <div>
+        {% block content %} {% endblock %}
+    </div>
+    {% include "investors/include/footer.html" %}
+
+ 
+    {% include "investors/include/scripts.html" %}
+</body>
+
+</html>

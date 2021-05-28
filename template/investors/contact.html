@@ -1,0 +1,184 @@
+{% extends 'investors/layout/base.html' %}
+{% load crispy_forms_tags %}
+{%  load static %}
+{% block title %} Contact Us | Micoin {% endblock title %}
+{% block content %}
+{% block styles %}
+<style>
+  /*---------------------
+  Contact
+-----------------------*/
+
+.contact-left {
+	margin-top: 60px;
+	margin-bottom: 30px;
+}
+
+.contact-left .contact-information {
+	margin-bottom: 80px;
+}
+
+.contact-left .contact-information h2 {
+	color: #ae9548;
+	font-size: 36px;
+	font-weight: 400;
+	margin-bottom: 28px;
+}
+
+.contact-left .contact-information ul li {
+	list-style: none;
+	position: relative;
+	margin-bottom: 26px;
+}
+
+.contact-left .contact-information ul li img {
+	position: absolute;
+	left: 0;
+	top: 2px;
+}
+
+.contact-left .contact-information ul li span {
+	color: #ae9548;
+	display: inline-block;
+	font-size: 14px;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 400;
+	line-height: 18px;
+	margin-left: 40px;
+}
+
+.contact-left .social-links h2 {
+	color: #ae9548;
+	font-size: 36px;
+	font-weight: 400;
+	margin-bottom: 46px;
+}
+
+.contact-left .social-links a {
+	display: inline-block;
+	height: 46px;
+	width: 46px;
+	border: 1px solid #ae9548;
+	color: #ae9548;
+	border-radius: 50%;
+	line-height: 46px;
+	font-size: 22px;
+	margin-right: 7px;
+	text-align: center;
+}
+
+.contact-form {
+	border: 2px solid #ae9548;
+	padding-left: 60px;
+	padding-top: 55px;
+	padding-right: 68px;
+	padding-bottom: 47px;
+}
+
+.contact-form-right h5 {
+	font-size: 36px;
+	font-weight: 400;
+	color: #ae9548;
+	line-height: 50px;
+	margin-bottom: 20px;
+}
+
+
+.contact-form form .btn-sun {
+	font-size: 18px;
+	color: #fff;
+	text-transform: uppercase;
+	font-family: "Open Sans", sans-serif;
+	font-weight: 700;
+	background: #ae9548;
+	border: none;
+	cursor: pointer;
+	position: relative;
+}
+  
+</style>
+{% endblock styles %}
+
+
+<section class="hero-section welcome-secton set-bg" data-setbg="{% static 'images/bg-10.jpg' %}">
+    <div class="container">
+    <div class="col-lg-12">
+         <h4><span>Home / </span><span>Contact Us</span></h4>
+        
+    </div>
+        
+    </div>
+    
+</section>
+<br>
+
+<!-- Contact Section Begin -->
+<section class="contact-section spad">
+    <div class="container">
+        <div class="">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="contact-left">
+                        <div class="contact-information">
+                            <h2>Contact Information</h2>
+                            <ul class="list-unstyled">
+                                <li><img src="{% static 'img/placeholder-copy.png' %}" alt=""> <span>1525 Boring Lane, Los Angeles,
+                                        CA</span></li>
+                                <li><img src="{% static 'img/phone-copy.png' %}" alt=""> <span>+1 (603)535-4592</span></li>
+                                <li><img src="{% static 'img/envelop.png' %}" alt=""> <span>hello@youremail.com</span></li>
+                                <li><img src="{% static 'img/clock-copy.png' %}" alt=""> <span>Everyday: 06:00 -22:00</span></li>
+                            </ul>
+                        </div>
+                        <div class="social-links">
+                            <h2>Follow us on:</h2>
+                            <a href="#"><i class="fa fa-facebook"></i></a>
+                            <a href="#"><i class="fa fa-instagram"></i></a>
+                            <!--a href="#"><i class="fa fa-linkedin"></i></a-->
+                            <!--a href="#"><i class="fa fa-pinterest"></i></a-->
+                            <a href="#"><i class="fa fa-twitter"></i></a>
+                            <!--a href="#"><i class="fa fa-youtube-play"></i></a-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="contact-form">
+                        <h5 id="response-msg-contact" style="color: #ae9548;">Write us ...</h5>
+                        <form class="contact_form_sub" action="#" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="name">Name</label>
+                                <input type="text" name="name" placeholder="input your name" id="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" name="email" placeholder="input email" id="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                               <label for="message">Message</label>
+                                <textarea name="message" id="message" placeholder="input message" cols="30" rows="5" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" style="border-radius: 5px; background: #c09924; color: #fff; padding: 10px 8px;" class="btn btn-block mb-4" id="contact-btn">
+                                    <i id="contact-spineer" style="visibility: hidden;" class="fa fa-spinner contact-fa-spin"></i><span id="contact-span">Submit</span>
+                                </button>        
+                            </div>
+    
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Contact Section End -->
+
+
+
+{% block javascript %}
+
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock javascript %}
+
+{% endblock content %}

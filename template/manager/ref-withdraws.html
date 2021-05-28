@@ -1,0 +1,75 @@
+{%  extends 'manager/layout/base.html'  %}
+{% load static %}
+{% block title %} Refferal Withdraws | Admin Dashboard {% endblock title %}
+
+{% block content %}
+
+  <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Refferal Withdraws</h3>
+                             <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0 ">ID</th>
+                                            <th class="border-top-0 text-center">User</th>
+                                            <th class="border-top-0 text-center"> Bank Name</th>
+                                            <th class="border-top-0 text-center">Acc No</th>
+                                            <th class="border-top-0 text-center">Acc Nmae</th>
+                                            <th class="border-top-0 text-center">Date</th>
+                                            <th class="border-top-0 text-center">Amount</th>
+                                            <th class="border-top-0 text-center">Status</th>
+                                            <th class="border-top-0 text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for obj in ref_withdraws %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ obj.user.username }}</td>
+                                            <td>{{ obj.bank_name }}</td>
+                                            <td>{{ obj.account_number }}</td>
+                                            <td>{{ obj.account_name }}</td>
+                                            <td>{{ obj.date }}</td>
+                                            <td>&#8358;{{ obj.amount }}</td>
+                                            <td>
+                                                {% if obj.complete == True %} 
+                                                      Complete
+                                                    {% else %}
+                                                     Pending
+                                                     {% endif %}
+                                            </td>
+                                            <td><a href="{% url 'admin_dashboard_refwith_detail' obj.pk %}">Action</a> </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+
+
+ 
+{% endblock content %}

@@ -1,0 +1,82 @@
+{%  extends 'manager/layout/base.html'  %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %} Verification Codes | Admin Dashboard {% endblock title %}
+{% block content %}
+
+  <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <div class="col-lg-8 ">
+                                <form action="" method="post" class="mb-5">{% csrf_token %}
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input id="name" name="name" type="text" class="form-control " required>
+                                    </div>
+                                    <!--div class="form-group">
+                                        <label for="amount">Amount</label>
+                                        <input id="amount" name="amount" type="number" class="form-control " required>
+                                    </div-->
+                                    <div class="form-group">
+                                        <label for="plans">Plan</label>
+                                        <select class="form-control" id="plans" name="plans" required>
+                                         
+                                          {% for pack in package %}
+                                             <option value="{{ pack.amount }}">{{ pack.name }}-{{ pack.amount }}</option>
+                                          {% endfor %} 
+                                        </select>
+                                      </div>
+                                   
+                                    <input type="submit" value="Submit" class="btn btn-success btn-block">
+                                </form>
+                            </div>
+                            <h3 class="box-title">Code</h3>
+                             <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0 ">ID</th>
+                                            <th class="border-top-0 text-center">Code</th>
+                                            <th class="border-top-0 text-center">Amount</th>
+                                            <th class="border-top-0 text-center">Status</th>
+                                         </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for obj in code %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td class="text-center">{{ obj.code }}</td>
+                                            <td class="text-center">&#8358;{{ obj.package.amount }}</td>
+                                            <td class="text-center">{{ obj.active }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+
+
+ 
+{% endblock content %}

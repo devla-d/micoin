@@ -1,0 +1,45 @@
+{%  load static %}
+
+<!-- Header Section Begin -->
+<header class="header-section">
+    <div class="container-fluid">
+        <div class="inner-header">
+            <div class="logo">
+                <a href="/"><!--img src="{% static 'images/logo.png' %}" alt=""-->MICOIN</a>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <nav class="main-menu mobile-menu">
+                            <ul>
+                                <li><a href="/">Home</a></li>
+                                <li><a href="{% url 'fund_wallet' %}">Invest</a></li>
+                                 <li><a href="{% url 'contact-us' %}">Contact</a></li>
+                                 {% if user.is_authenticated %}
+                                    <li><a class="  auth-btn btn-sm" href="{%  url 'dashboard' %}">Dashboard</a> </li>
+                                   <li><a class="  auth-btn btn-sm" href="{% url 'logout_view' %}">Logout</a> </li>
+                                 {% else %}
+                                <li><a class="  auth-btn btn-sm" href="{% url 'login_view' %}">Login</a> </li>
+                                <li> <a class="  auth-btn btn-sm" href="{% url 'register_view' %}">Register</a> </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                        <div class="top-info">
+                            {% if user.is_authenticated %}
+                            <ul>
+                                <li><a class="  btn-sm" href="{%  url 'dashboard' %}">Dashboard</a> </li>
+                                <li><a class="  btn-sm" href="{% url 'logout_view' %}">Logout</a> </li> 
+                            </ul> 
+                            {% else %}
+                                <a style="background:  #c09924; border: none; color: white; padding: 8px 20px;  text-align: center;" class="btn auth-btn " href="{% url 'login_view' %}">Login</a> 
+                                <a style="background:  #c09924; border: none; color: white; padding: 8px 20px; text-align: center;"  class="btn auth-btn" href="{% url 'register_view' %}">Register</a> 
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="mobile-menu-wrap"></div>
+        </div>
+    </div>
+</header>
+<!-- Header End -->

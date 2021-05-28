@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+    {% include "manager/includes/header.html" %}
+<body>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Main wrapper - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <div id="main-wrapper" data-layout="vertical" data-navbarbg="skin5" data-sidebartype="full"
+        data-sidebar-position="absolute" data-header-position="absolute" data-boxed-layout="full">
+        {% include "manager/includes/navbar.html" %}
+        <div class="page-wrapper">
+           {% include "manager/includes/breadcrum.html" %}
+
+
+
+
+
+
+
+        {% block content %}
+
+        {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <!-- ============================================================== -->
+            <footer class="footer text-center"> 2021 © Ample Admin brought to you by <a
+                href="https://www.wrappixel.com/">wrappixel.com</a>
+        </footer>
+        <!-- ============================================================== -->
+        <!-- End footer -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="{% static 'admin/plugins/bower_components/jquery/dist/jquery.min.js' %}"></script>
+<!-- Bootstrap tether Core JavaScript -->
+<script src="{% static 'admin/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'admin/js/app-style-switcher.js' %}"></script>
+<script src="{% static 'admin/plugins/bower_components/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+<!--Wave Effects -->
+<script src="{% static 'admin/js/waves.js' %}"></script>
+<!--Menu sidebar -->
+<script src="{% static 'admin/js/sidebarmenu.js' %}"></script>
+<!--Custom JavaScript -->
+<script src="{% static 'admin/js/custom.js' %}"></script>
+<!--This page JavaScript -->
+<!--chartis chart-->
+<script src="{% static 'admin/plugins/bower_components/chartist/dist/chartist.min.js'%}"></script>
+<script src="{% static 'admin/plugins/bower_components/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js' %}"></script>
+<script src="{% static 'admin/js/pages/dashboards/dashboard1.js'  %}"></script>
+</body>
+
+</html>

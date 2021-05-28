@@ -1,0 +1,64 @@
+{%  extends 'manager/layout/base.html'  %}
+{% load static %}
+{% block title %} Investments | Admin Dashboard {% endblock title %}
+{% block content %}
+
+  <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Investments</h3>
+                             <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0 ">ID</th>
+                                            <th class="border-top-0 text-center">User</th>
+                                            <th class="border-top-0 text-center"> Package</th>
+                                            <th class="border-top-0 text-center">Start Date</th>
+                                            <th class="border-top-0 text-center">End Date</th>
+                                            <th class="border-top-0 text-center">Status</th>
+                                             
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for obj in investments %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ obj.user.username }}</td>
+                                            <td>{{ obj.pack.name }}</td>
+                                            <td>{{ obj.start_date }}</td>
+                                            <td>{{ obj.end_date }}</td>
+                                            <td>{{ obj.status }}</td>
+                                            
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+
+
+ 
+{% endblock content %}

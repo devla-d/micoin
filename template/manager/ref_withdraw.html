@@ -1,0 +1,117 @@
+{%  extends 'manager/layout/base.html'  %}
+{% load static %}
+{% block title %} Refferal Withdraw {{ ref_withdraw.pk }} | Admin Dashboard {% endblock title %}
+{% block content %}
+
+
+
+
+
+    <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                  
+                    <!-- Column -->
+                    <div class="col-lg-10 col-xlg-10 col-md-12">
+                        <div class="card">
+                            <h3 class="text-center mt-3 text-success" id="response-msg-ref">
+
+                            </h3>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                 
+                                                <th class="border-top-0 text-center">Info</th>
+                                                <th class="border-top-0 text-center pull-right">Status</th>
+                                                 
+                                            </tr>
+                                        </thead>
+                                        <tbody> 
+                                            <tr>
+                                                <td>User</td>
+                                                <td data-user="{{ ref_withdraw.user.pk }}" class="pull-right text-center refusername">{{ ref_withdraw.user.username }}</td>
+                                                 
+                                            </tr> 
+                                            <!--tr>
+                                                <td>investment</td>
+                                                <td  id="{{ ref_withdraw.investment.id }}"  class="pull-right text-center investment-pk">{{ ref_withdraw.investment.pack.name }}</td>
+                                                 
+                                            </tr-->
+                                            <tr>
+                                                <td>Bank Name</td>
+                                                <td data-pk="{{ ref_withdraw.pk }}"  class="pull-right text-center refwithdraw">{{ ref_withdraw.bank_name }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Account Number</td>
+                                                <td  class="pull-right text-center">{{ ref_withdraw.account_number }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Account Name</td>
+                                                <td  class="pull-right text-center">{{ ref_withdraw.account_name }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Amount</td>
+                                                <td  class="pull-right text-center">&#8358;{{ ref_withdraw.amount }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Date</td>
+                                                <td  class="pull-right text-center">{{ ref_withdraw.date }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Status</td>
+                                                <td  class="pull-right text-center">
+                                                    {% if ref_withdraw.complete == True %} 
+                                                      Complete
+                                                    {% else %}
+                                                     Pending
+                                                     {% endif %}
+                                                </td>
+                                                 
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="d-flex justify-content-center">
+                                        <button class="btn btn-success refpay-btn mb-3 {% if ref_withdraw.complete == True %} disabled {% endif %}">
+                                            Approve
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                </div>
+                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+
+            
+            {% block scripts %}
+            <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+            <script src="{% static 'admin/js/app.js' %}"></script>
+            {% endblock scripts %}
+{% endblock content %}

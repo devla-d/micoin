@@ -1,0 +1,243 @@
+{%  extends 'manager/layout/base.html'  %}
+{% load static %}
+{% block title %} User- {{ acc.username }} | Admin Dashboard {% endblock title %}
+
+{% block content %}
+
+  <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <!-- Row -->
+                <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-12">
+                        <div class="white-box">
+                            <div class="user-bg"> <img width="100%" alt="user" src="{% static 'admin/plugins/images/large/img1.jpg' %}">
+                                <div class="overlay-box">
+                                    <div class="user-content">
+                                        <a href="javascript:void(0)"><img src="{% static 'admin/plugins/images/users/genu.jpg' %}"
+                                                class="thumb-lg img-circle" alt="img"></a>
+                                        <h4 class="text-white mt-2">{{ acc.username }}</h4>
+                                        <h5 class="text-white mt-2">{{ acc.email }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-btm-box mt-5 d-md-flex">
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <h6>{{ acc.refferal }}</h6>
+                                </div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <h6>&#8358;{{ acc.balance }}</h6>
+                                </div>
+                                <div class="col-md-4 col-sm-4 text-center">
+                                    <h6>{{ acc.reffered_by }}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <h3 class="text-center text-success mt-5">User Details</h3>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                 
+                                                <th class="border-top-0 text-center">Info</th>
+                                                <th class="border-top-0 text-center pull-right">Status</th>
+                                                 
+                                            </tr>
+                                        </thead>
+                                        <tbody> 
+                                            <tr>
+                                                <td>Username</td>
+                                                <td class="pull-right text-center">{{ acc.username }}</td>
+                                                 
+                                            </tr> 
+                                            <!--tr>
+                                                <td>investment</td>
+                                                <td  id="{{ withdraw.investment.id }}"  class="pull-right text-center investment-pk">{{ withdraw.investment.pack.name }}</td>
+                                                 
+                                            </tr-->
+                                            <tr>
+                                                <td>Email</td>
+                                                <td class="pull-right text-center ">{{ acc.email }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Phone  Number</td>
+                                                <td  class="pull-right text-center">{{ acc.phone }}</td>
+                                                 
+                                            </tr>
+                                            
+                                            <tr>
+                                                <td>Balance</td>
+                                                <td  class="pull-right text-center">&#8358;{{ acc.balance }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Refferal</td>
+                                                <td  class="pull-right text-center">{{ acc.refferal }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Refferal Balance</td>
+                                                <td  class="pull-right text-center">&#8358;{{ acc.referral_balance }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Reffered By</td>
+                                                <td  class="pull-right text-center">{{ acc.reffered_by }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>Total Withdraw </td>
+                                                <td  class="pull-right text-center">&#8358;{{ acc.withdraw_total }}</td>
+                                                 
+                                            </tr>
+                                            <tr>
+                                                <td>spendable Cash</td>
+                                                <td  class="pull-right text-center">&#8358;{{ acc.investment_earnings }}</td>
+                                                 
+                                            </tr>
+                                             
+                                        </tbody>
+                                    </table>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <h3 class="text-center text-success mt-5">Investment History</h3>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0 ">ID</th>
+                                                 <th class="border-top-0 text-center"> Package</th>
+                                                <th class="border-top-0 text-center">Start Date</th>
+                                                <th class="border-top-0 text-center">End Date</th>
+                                                <th class="border-top-0 text-center">Status</th>
+                                                 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for obj in investment %}
+                                            <tr>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                 <td>{{ obj.pack.name }}</td>
+                                                <td>{{ obj.start_date }}</td>
+                                                <td>{{ obj.end_date }}</td>
+                                                <td>{{ obj.status }}</td>
+                                                
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-xlg-9 col-md-12">
+                        <div class="card">
+                            <h3 class="text-center text-success mt-5">Withdraw History</h3>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table text-nowrap">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-top-0 ">ID</th>
+                                                <th class="border-top-0 text-center"> Bank Name</th>
+                                                <th class="border-top-0 text-center">Acc No</th>
+                                                <th class="border-top-0 text-center">Acc Nmae</th>
+                                                <th class="border-top-0 text-center">Date</th>
+                                                <th class="border-top-0 text-center">Amount</th>
+                                                <th class="border-top-0 text-center">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for obj in withdraws %}
+                                            <tr>
+                                                <th scope="row">{{ forloop.counter }}</th>
+                                                <td>{{ obj.bank_name }}</td>
+                                                <td>{{ obj.account_number }}</td>
+                                                <td>{{ obj.account_name }}</td>
+                                                <td>{{ obj.date }}</td>
+                                                <td>&#8358;{{ obj.amount }}</td>
+                                                <td>{{ obj.complete }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                   </div>
+                </div>
+
+                <div class="col-lg-8 col-xlg-9 col-md-12">
+                    <div class="card">
+                        <h3 class="text-center text-success mt-5">Referral History</h3>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0 ">ID</th>
+                                            <th class="border-top-0 text-center"> Bank Name</th>
+                                            <th class="border-top-0 text-center">Acc No</th>
+                                            <th class="border-top-0 text-center">Acc Nmae</th>
+                                            <th class="border-top-0 text-center">Date</th>
+                                            <th class="border-top-0 text-center">Amount</th>
+                                            <th class="border-top-0 text-center">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for obj in ref_withdraws %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ obj.bank_name }}</td>
+                                            <td>{{ obj.account_number }}</td>
+                                            <td>{{ obj.account_name }}</td>
+                                            <td>{{ obj.date }}</td>
+                                            <td>&#8358;{{ obj.amount }}</td>
+                                            <td>{{ obj.complete }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                    <!-- Column -->
+                </div>
+                <!-- Row -->
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+
+
+ 
+{% endblock content %}           

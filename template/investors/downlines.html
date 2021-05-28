@@ -1,0 +1,81 @@
+{% extends 'investors/layout/base.html' %}
+{%  load static %}
+{% block title %} {{ user.username }} | Downlines {% endblock title %}
+{% block content %}
+
+<style>
+.dot {
+  height: 25px;
+  width: 25px;
+  background-color: rgb(233, 27, 27);
+  border-radius: 50%;
+  display: inline-block;
+}
+.dott {
+  height: 25px;
+  width: 25px;
+  background-color: blue;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>
+
+<section class="hero-section welcome-secton set-bg" data-setbg="{% static 'images/bg-10.jpg' %}">
+    <div class="container">
+    <div class="col-lg-12">
+         <h4><span>Home / </span><span>Downlines</span></h4>
+         <div class="d-flex justify-content-center">
+          {% for message in messages %}
+            <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+          {% endfor %}
+        </div>
+        
+    </div>
+        
+    </div>
+    
+</section>
+<br><br>
+<section class="active-pack">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="">
+                    <div class="table-responsive-md p-0">
+                        <table class="table style--two white-space-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Username</th>
+                              <th>Commision</th>
+                               <th>Status</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                {% for obj in myrecs %}
+                                    <tr>
+                                        <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ obj.user.username }}</td>
+                                            <td>&#8358;{{ obj.user.bonus }}</td>
+                                            <td><span class="{% if obj.user.deposited == True %} dott {% else %} dot {% endif %}"></span> </td>
+                                    </tr> 
+                                {% endfor %}                    
+                          </tbody>
+                        </table>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<br><br>
+
+
+
+
+
+
+
+ 
+{% endblock content %}

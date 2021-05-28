@@ -1,0 +1,66 @@
+{%  extends 'manager/layout/base.html'  %}
+{% load static %}
+{% block title %} Users| Admin Dashboard {% endblock title %}
+{% block content %}
+
+  <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid">
+                <!-- ============================================================== -->
+                <!-- Start Page Content -->
+                <!-- ============================================================== -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="white-box">
+                            <h3 class="box-title">Users</h3>
+                             <div class="table-responsive">
+                                <table class="table text-nowrap">
+                                    <thead>
+                                        <tr>
+                                            <th class="border-top-0 ">ID</th>
+                                            <th class="border-top-0 text-center">User</th>
+                                            <th class="border-top-0 text-center">Email</th>
+                                            <th class="border-top-0 text-center">Balance</th>
+                                            <th class="border-top-0 text-center">Refferal</th>
+                                            <th class="border-top-0 text-center">Refferal Bal</th>
+                                            <!--th class="border-top-0 text-center">Reffered By</th-->
+                                            <th class="border-top-0 text-center">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for obj in accounts %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td class="text-cnter">{{ obj.username }}</td>
+                                            <td class="text-cnter">{{ obj.email }}</td>
+                                            <td class="text-cnter">&#8358;{{ obj.balance }}</td>
+                                            <td class="text-cnter">{{ obj.refferal }}</td>
+                                            <td class="text-cnter">&#8358;{{ obj.referral_balance }}</td>
+                                            <!--td>{{ obj.reffered_by }}</td-->
+                                            <td><a href="{% url 'admin_dashboard_user_detail' obj.pk obj.username %}">View</a> </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ============================================================== -->
+                <!-- End PAge Content -->
+                <!-- ============================================================== -->
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
+            <!-- ============================================================== -->
+            <!-- End Container fluid  -->
+
+
+
+ 
+{% endblock content %}

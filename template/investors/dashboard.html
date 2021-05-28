@@ -1,0 +1,567 @@
+{% extends 'investors/layout/base.html' %}
+{%  load static %}
+{% block title %} {{ user.username }} | Dashboard {% endblock title %}
+{% block content %}
+
+{% block style %}
+<style>
+  .mytooltip .mytooltiptext {
+  visibility: visible;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  font-size: 20px;
+
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+}
+
+/*.mytooltip:hover .mytooltiptext {
+  visibility: visible;
+}*/
+ 
+  .modal {
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: transparent; }
+  .modal a {
+    color: #fff; }
+  .modal .logo a img {
+    width: 30px; }
+  .modal .modal-content {
+    background-color: #000000;
+    border: none;
+    border-radius: 7px; }
+    .modal .modal-content .modal-body {
+      border-radius: 7px;
+      overflow: hidden;
+      color: #fff;
+      padding-left: 0px;
+      padding-right: 0px;
+      -webkit-box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.9);
+      box-shadow: 0 10px 50px -10px rgba(0, 0, 0, 0.9); }
+      .modal .modal-content .modal-body.overlay {
+        position: relative; }
+        .modal .modal-content .modal-body.overlay:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          width: 100%;
+          background-color: rgba(0, 0, 0, 0.5); }
+        .modal .modal-content .modal-body.overlay .to-front {
+          z-index: 2;
+          position: relative; }
+      .modal .modal-content .modal-body h2 {
+        font-size: 18px; }
+      .modal .modal-content .modal-body p {
+        color: #fff; }
+      .modal .modal-content .modal-body h3 {
+        color: #fff;
+        font-size: 22px; }
+      .modal .modal-content .modal-body .close-btn {
+        color: #fff; }
+      .modal .modal-content .modal-body .line {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        padding-bottom: 10px; }
+  .modal .cancel a {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    font-weight: bold; }
+    .modal .cancel a:hover {
+      color: #fff; }
+
+.form-control {
+  border: transparent; }
+  .form-control:active, .form-control:focus, .form-control:hover {
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important; }
+.hide {
+  display:none
+}
+
+.skills{
+  text-transform:uppercase;
+  font-size:30px;
+  display: inline-block;
+  white-space: nowrap;
+  animation: floatText 25s infinite linear;
+   color:#ada97d;
+   width: 200px;
+}
+@keyframes floatText {
+  to {
+    transform: translateX(-100%);
+  }
+}
+  
+</style>
+{% endblock %}
+
+<section class="hero-section welcome-secton set-bg" data-setbg="{% static 'images/bg-10.jpg' %}">
+    <div class="container">
+    <div class="col-lg-12">
+         <h4><span>Home / </span><span>Dashboard</span></h4>
+         <div class="d-flex justify-content-center">
+          {% for message in messages %}
+            <h5 class="alert alert-{{ message.tags }} text-center">{{  message }}</h5>
+          {% endfor %}
+        </div>
+        <div id="alertId" class="alert alert-success fade in hide">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          <strong>Success!</strong> Your message has been sent successfully.
+      </div>
+    </div>
+        
+    </div>
+    
+</section>
+<br><br>
+<!--section class="history-section">
+  <div class="container">
+      <div class="col-lg-">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="d-flex justify-content-center">
+              <div class="skills">
+                Front end Web development • 3d design • Graphic design • Community management • Open source • Technical support • Technical Writing • Figma • Pricacy & cybersecurity • Search Engine Optimization • Logo design
+              </div>
+            </div>
+          </div>
+        </div>
+          
+      </div>
+     
+  </div>
+</section-->
+
+<section class="data">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Wallet Balance</span>
+                            <h6 class="currency-amount">&#8358;{{ user.investment_earnings }}</h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-credit-card"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+                      <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Total withdraw</span>
+                            <h6 class="currency-amount">&#8358;{{ user.withdraw_total }}</h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-download"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+                      
+                      <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Amount Invested</span>
+                            <h6 class="currency-amount">
+                              {% if order is not None %}
+                              &#8358;{{ order.total_invested }}
+                              {% else %}
+                              &#8358;0
+                              {% endif %}
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-gift"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+                      <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Total Investment</span>
+                            <h6 class="currency-amount">
+                              {% if order is not None %}
+                              {{ order.total_invesment }}
+                              {% else %}
+                               0
+                              {% endif %}
+                            </h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i class="fas fa-chart-bar"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+                      <div  data-toggle="modal" data-target="#refeModalCenter" class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Refferal Balance</span>
+                            <h6 class="currency-amount">&#8358;{{ user.referral_balance }} <span><small>click to withdraw</small></span></h6>
+                             
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <i  data-toggle="modal" data-target="#refeModalCenter" class="fas fa-user-plus ">
+
+                              </i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+                      <div class="col-xl-4 col-sm-6 mb-30 py-2">
+                        <div class="d-widget d-flex flex-wrap">
+                          <div class="col-8">
+                            <span class="caption">Refferal ({{ user.refferal }})</span>
+                            <h6 class="currency-amount">
+                              <input id="myInput" style="border: none; background: #cca354; color: #fff;" type="text" value=" http://localhost:8000/ref/{{ user.username }}" readonly>
+                            </h6>
+                          </div>
+                          <div class="col-4">
+                            <div class="icon ml-auto">
+                              <span class="tooltiptext" id="myTooltip"></span>
+                              <i class="fa fa-link copyicon " onclick="copyFunc()"></i>
+                            </div>
+                          </div>
+                        </div><!-- d-widget-two end -->
+                      </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="active-pack">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h6 class="text-center">Your packages</h6>
+                <div class="">
+                    <div class="table-responsive-md p-0">
+                        <table class="table style--two white-space-nowrap">
+                          <thead>
+                            <tr>
+                              <th>ID</th>
+                              <th>Amount</th>
+                              <th>ROI</th>
+                               <th>End Date </th>
+                              <!--th>Action</th-->
+                            </tr>
+                          </thead>
+                          <tbody>
+                             {% if order is not None %}
+                                {% for obj in order.investment.all %}
+                                <tr>
+                                  <th scope="row">{{ forloop.counter }}</th>
+                                  <td>&#8358;{{ obj.pack.amount }}</td>
+                                  <td>&#8358;{{ obj.daily}}</td>
+                                   <td data-packId="{{ obj.id }}" data-userid="{{ user.id }}" data-time=" {{ obj.end_date|date:'M d, Y H:m:s'  }}" class="time"> {{ obj.end_date }} </td>
+                                  <!--td style="visibility: hidden;" >
+                                    {% if obj.p_with_status == False %}
+                                      Pending
+                                    {% elif obj.p_with_status == True   %}
+                                      complete
+                                    {% else %}
+                                       <a type="button" class="btn {% if obj.is_past_due == False %} disabled {% endif %} " data-toggle="modal" data-target="#withdrawModalCenter" style="background: #cca354; color: #fff;">withdraw</a>
+                                      {% endif %}
+                                    </td-->
+                                  
+                                </tr>
+                               {% endfor %}
+                             {% else %}
+                              <tr><td colspan="12" data-label=""><div class="text-center base--color p-3"><span>No active Investment yet</span></div></td></tr>                      
+                             {% endif %}
+                          </tbody>
+                        </table>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="history-section">
+    <div class="container">
+        <div class="col-lg-12">
+          <div class="container">
+            <div class="add_card">
+               <!--a style="color: #fff;" href="{% url 'fund_wallet' %}" class="add__item">
+                <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                  <i  class="fas fa-plus fa-2x fa__item_add"></i>
+                </div>
+                Invest
+               </a-->
+               <a style="color: #fff;" href="{% url 'withdraw' %}" class="add__item">
+                <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                  <i  class="fas fa-arrow-right fa-2x fa__item_add"></i>
+                </div>
+                Withdraw
+              </a>
+              <a style="color: #fff;" href="{% url 'user_history' %}" class="add__item">
+                <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                  <i  class="fas fa-history fa-2x fa__item_add"></i>
+                </div>
+                History
+              </a>
+              <a style="color: #fff;" href="{% url 'user_downlines' %}" class="add__item">
+                <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                  <i  class="fas fa-user-plus fa-2x fa__item_add"></i>
+                </div>
+                Downlines
+              </a>
+              <!--div class="add__item">
+                <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+                  <i  class="fas fa-credit-card fa-2x fa__item_add"></i>
+                </div>
+                Invest
+              </div-->
+
+            </div>
+        </div>
+            <div class="d-flex justify-content-center">
+                 <!--ul class="list-unstyled">
+                     <li><A href="{% url 'user_history' %}" style="background: #cca354; color: #fff;" class="btn ">History</A></li>
+                     <li><a type="button" class="btn " data-toggle="modal" data-target="#exampleModalCenter" style="background: #cca354; color: #fff;">Create New Investment</a></li>
+                     <li><a href="{% url 'user_downlines' %}" class="btn "  style="background: #cca354; color: #fff;">My downlines</a></li>
+
+                  </ul-->
+            </div>
+        </div>
+       
+    </div>
+</section>
+<!--section class="invest mt-3">
+  <div class="col-lg-12">
+    <div class="">
+      <div class="d-flex justify-content-center">
+        <div class="invest-card" style=" display: flex;">
+          <a type="button" class="invest-btn border-0 add__item" data-toggle="modal" data-target="#exampleModalCenter" >
+            <div class="rounded-circle mb-2 bg-white-light fa_card_add">
+              <i  class="fa fa-plus fa-2x fa__item_add"></i>
+            </div>
+            Invest
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section-->
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body bg-image overlay" style="background-image: url('images/hero.jpg');">
+
+        <div class="line px-3 to-front">
+          <div class="row align-items-center">
+            <div class="col logo">
+              <a href="#"></a>
+            </div>
+            <div class="col-md-8 text-center">
+              <h2 id="response-msg" style="color: #cca354;"></h2>
+            </div>
+            <div class="col text-right">
+              <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><span class="icon-close2"></span></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 to-front">
+          <div class="text-center">
+            <h3>Purchase a package</h3>
+             <form  class="package_form mb-4">
+              <div class="form-group">
+                <label for="plans">Plan</label>
+                <select class="form-control" id="plans" required>
+                  <option>Choose plan</option>
+                  {% for pack in packs %}
+                     <option>{{ pack.amount }}</option>
+                  {% endfor %} 
+                </select>
+              </div>
+              <div class="msg-box" style="display: none;">
+
+              <div class="form-group">
+                <label for="price">Price</label>
+                <small id="price"></small>
+              </div>
+              <div class="form-group">
+                <label for="rio">Rio</label>
+                <small id="rio"></small>
+              </div>
+              <button type="submit" class="btn submit-btn btn-primary">
+                <i id="spineer" style="visibility: hidden;" class="fa fa-spinner fa-spin"></i><span id="purchase-span">Purchase</span>
+              </button>
+               
+            </div>
+            </form>
+            <p class="mb-0 cancel"><a href="#" data-dismiss="modal">Maybe later</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!--Ref earnings Modal -->
+<div class="modal fade" id="refeModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body bg-image overlay" style="background-image: url('images/hero.jpg');">
+
+        <div class="line px-3 to-front">
+          <div class="row align-items-center">
+            <div class="col logo">
+              <a href="#"></a>
+            </div>
+            <div class="col-md-8 text-center">
+              <h2 id="response-msg-ref" style="color: #cca354;">Refferal Withdraw</h2>
+            </div>
+            <div class="col text-right">
+              <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><span class="icon-close2"></span></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 to-front">
+          <div class="text-center">
+              <form  class="ref_form mb-4">
+              <div class="form-group">
+                <label for="bank-name">Bank Name</label>
+                <input type="text" id="ref-bank-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="acct-name">Account Name</label>
+                <input type="text" id="ref-acct-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="acct-num">Account No</label>
+                <input type="text" id="ref-acct-num" class="form-control" required>
+              </div>
+              <button type="submit" class="btn submit-btn btn-primary">
+                <i id="ref-spineer" style="visibility: hidden;" class="fa fa-spinner fa-spin"></i><span id="ref-span">Withdraw Ref-Earning</span>
+              </button>
+               
+               
+            </div>
+            </form>
+            <div class="d-flex justify-content-center">
+              <p class="mb-0 cancel"><a href="#" data-dismiss="modal">Maybe later</a></p>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- withdraw Modal -->
+<!--div class="modal fade" id="withdrawModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content rounded-0">
+      <div class="modal-body bg-image overlay" style="background-image: url('images/hero.jpg');">
+
+        <div class="line px-3 to-front">
+          <div class="row align-items-center">
+            <div class="col logo">
+              <a href="#"></a>
+            </div>
+            <div class="col-md-8 text-center">
+              <h2 id="response-msg-with" style="color: #cca354;">withdraw</h2>
+            </div>
+            <div class="col text-right">
+              <a href="#" class="close-btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true"><span class="icon-close2"></span></span>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="p-4 to-front">
+          <div class="text-center">
+              <form  class="wihdraw_form mb-4">
+                <select class="form-control" id="investment" required>
+                  
+                  {% if investment is not None %}
+                  {% for obj in investment %}
+                     <option value="{{ obj.id }}">{{ obj.pack.name }},{{ obj.pack.amount }}</option>
+                  {% endfor %} 
+                  {% endif %}
+                </select>
+              <div class=" " >
+
+              <div class="form-group">
+                <label for="bank-name">Bank Name</label>
+                <input type="text" id="bank-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="acct-name">Account Name</label>
+                <input type="text" id="acct-name" class="form-control" required>
+              </div>
+              <div class="form-group">
+                <label for="acct-num">Account No</label>
+                <input type="text" id="acct-num" class="form-control" required>
+              </div>
+              <button type="submit" class="btn submit-btn btn-primary">
+                <i id="with-spineer" style="visibility: hidden;" class="fa fa-spinner fa-spin"></i><span id="with-span">Withdraw</span>
+              </button>
+               
+            </div>
+            </form>
+            <p class="mb-0 cancel"><a href="#" data-dismiss="modal">Maybe later</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div-->
+<br><br><br>
+
+{% block javascript %}
+<script>
+   function copyFunc () {
+        var copyText = document.getElementById("myInput");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        document.getElementById('alertId').classList.remove('hide')
+         
+      }
+      
+</script>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+
+{% endblock javascript %}
+
+{% endblock content %}
